@@ -12,9 +12,8 @@ class EntriesTable {
   
   EntriesTable(this.domainModels, String modelName) {
     modelEntries = domainModels.getModelEntries(modelName); 
-    var dname = domainModels.domain.code;
-    var mname = modelEntries.model.code;
-    lsKey = '${dname}_${mname}_data';
+    var domainName = domainModels.domain.code;
+    lsKey = '${domainName}_${modelName}_data';
     load(modelEntries);
     
     table = new Element.table();
