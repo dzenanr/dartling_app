@@ -1,0 +1,28 @@
+pubspec.yaml
+
+name: dartling_app
+version: 0.0.1
+description: dartling_app is used to interpret a model and navigate through the model starting by its entry points
+author: Dzenan Ridjanovic <dzenanr@gmail.com>
+homepage: https://github.com/dzenanr/dartling_app
+documentation: http://goo.gl/Fd08zZ
+environment:
+  sdk: '>=1.2.0 <2.0.0'
+dependencies:
+  browser: '>=0.10.0 <0.11.0'
+  dartling:
+    git: 'https://github.com/dzenanr/dartling.git'
+  intl: '>=0.9.8 <0.10.0'
+  
+dependencies:
+  browser: '>=0.10.0 <0.11.0'
+  dartling: '>=2.0.0 <3.0.0'
+  intl: '>=0.9.8 <0.10.0'
+
+dependencies:
+  browser: '>=0.10.0 <0.11.0'
+  dartling:
+    path: 'C:\Users\ridjanod.FSA-RIDJANOD-2\dart\model\dartling'
+  intl: '>=0.9.8 <0.10.0'
+  
+  

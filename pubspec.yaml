@@ -1,0 +1,12 @@
+name: dartling_app
+version: 0.0.1
+author: Dzenan Ridjanovic <dzenanr@gmail.com>
+description: generic web components based on dartling
+homepage: https://github.com/dzenanr/dartling_app
+documentation: http://goo.gl/wa8JSi
+dependencies:
+  browser: any
+  dartling:
+    git: https://github.com/dzenanr/dartling.git
+  
+  
