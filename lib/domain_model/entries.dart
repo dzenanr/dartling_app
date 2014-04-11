@@ -10,8 +10,8 @@ class EntriesTable {
   
   String lsKey;
   
-  EntriesTable(this.domainModels) {
-    modelEntries = domainModels.getModelEntries("Synonyms"); 
+  EntriesTable(this.domainModels, String modelName) {
+    modelEntries = domainModels.getModelEntries(modelName); 
     var dname = domainModels.domain.code;
     var mname = modelEntries.model.code;
     lsKey = '${dname}_${mname}_data';
