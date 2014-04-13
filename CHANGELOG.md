@@ -2,8 +2,8 @@
 
 based on [Semantic Versioning](http://semver.org/)
 
-*0.0.1* 2014-04-11
+*0.0.1* 2014-04-13
 
-+ add example
++ add examples
 + create initial version 
 

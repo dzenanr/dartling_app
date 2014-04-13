@@ -55,6 +55,47 @@ Model createModel(Domain domain) {
   articleBlogNeighbor.identifier = true;
   blogArticlesNeighbor.opposite = articleBlogNeighbor;
   articleBlogNeighbor.opposite = blogArticlesNeighbor;
+  
+  Concept commentConcept = new Concept(model, 'Comment');
+  commentConcept.entry = false;
+  commentConcept.description = 'Comments on articles.';
+  
+  var commentText = new Attribute(commentConcept, 'text');
+  commentText.required = true;
+  commentText.type = descriptionType;
+  
+  var commentDate = new Attribute(commentConcept, 'date');
+  commentDate.type = dateType;
+  commentDate.init = 'now';
+  
+  var commentBy = new Attribute(commentConcept, 'by');
+  commentBy.type = nameType;
+  
+  Child articleCommentsNeighbor =
+      new Child(articleConcept, commentConcept, 'comments');
+  Parent commentArticleNeighbor =
+      new Parent(commentConcept, articleConcept, 'article');
+  articleCommentsNeighbor.opposite = commentArticleNeighbor;
+  commentArticleNeighbor.opposite = articleCommentsNeighbor;
+  
+  Concept tagConcept = new Concept(model, 'Tag');
+  tagConcept.entry = false;
+  tagConcept.description = 'Tags of articles.';
+  
+  var tagName = new Attribute(tagConcept, 'name');
+  tagName.identifier = true;
+  tagName.type = nameType;
+  
+  var tagNote = new Attribute(tagConcept, 'note');
+  tagNote.type = descriptionType;
+  
+  Child articleTagsNeighbor =
+      new Child(articleConcept, tagConcept, 'tags');
+  Parent tagArticleNeighbor =
+      new Parent(tagConcept, articleConcept, 'article');
+  tagArticleNeighbor.identifier = true;
+  articleTagsNeighbor.opposite = tagArticleNeighbor;
+  tagArticleNeighbor.opposite = articleTagsNeighbor;
 
   return model;
 }
