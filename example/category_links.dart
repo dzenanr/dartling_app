@@ -10,15 +10,30 @@ Model createModel(Domain domain) {
 
   Concept categoryConcept = new Concept(model, 'Category');
   categoryConcept.description = 'Category of web links.';
-  new Attribute(categoryConcept, 'name').identifier = true;
-  new Attribute(categoryConcept, 'description');
+  
+  var categoryName = new Attribute(categoryConcept, 'name');
+  categoryName.identifier = true;
+  AttributeType nameType = domain.getType('Name');
+  categoryName.type = nameType;
+  
+  var categoryDescription = new Attribute(categoryConcept, 'description');
+  AttributeType descriptionType = domain.getType('Description');
+  categoryDescription.type = descriptionType;
 
   Concept webLinkConcept = new Concept(model, 'WebLink');
   webLinkConcept.entry = false;
   webLinkConcept.description = 'Web links of interest.';
-  new Attribute(webLinkConcept, 'subject').identifier = true;
-  new Attribute(webLinkConcept, 'url');
-  new Attribute(webLinkConcept, 'description');
+  
+  var webLinkSubject = new Attribute(webLinkConcept, 'subject');
+  webLinkSubject.identifier = true;
+  webLinkSubject.type = nameType;
+    
+  var webLinkUrl = new Attribute(webLinkConcept, 'url');
+  AttributeType urlType = domain.getType('Uri');
+  webLinkUrl.type = urlType;
+  
+  var webLinkDescription = new Attribute(webLinkConcept, 'description');
+  webLinkDescription.type = descriptionType;
 
   Child categoryWebLinksNeighbor =
       new Child(categoryConcept, webLinkConcept, 'webLinks');
@@ -39,8 +54,11 @@ DomainModels createDomainModels(Domain domain, Model model) {
 }
 
 ModelEntries createModelEntries(Model model) {
-  var entries = new ModelEntries(model);
-  Entities categories = entries.getEntry('Category');
+  return new ModelEntries(model);
+}
+
+createData(ModelEntries modelEntries) {
+  Entities categories = modelEntries.getEntry('Category');
 
   ConceptEntity dartCategory = new ConceptEntity.of(categories.concept);
   dartCategory.setAttribute('name', 'Dart');
@@ -69,9 +87,7 @@ ModelEntries createModelEntries(Model model) {
   tryDartWebLink.setAttribute('description',
     'Try out the Dart Language from the comfort of your web browser.');
   tryDartWebLink.setParent('category', dartCategory);
-  dartWebLinks.add(tryDartWebLink);
-
-  return entries;
+  dartWebLinks.add(tryDartWebLink); 
 }
 
 main() {
