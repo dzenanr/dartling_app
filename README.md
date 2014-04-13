@@ -9,6 +9,6 @@ navigate through the model and update its data
 
 ### Documentation
 
-[catehgory_links] (http://goo.gl/wa8JSi) example
+[word_synonyms] (http://goo.gl/wa8JSi) example
 
 [blog_articles](http://goo.gl/dgDvcB) example
