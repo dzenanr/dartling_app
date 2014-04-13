@@ -99,36 +99,13 @@ class EntitiesTable {
   }
   
   /**
-   * Compares two values based on their attribute.
+   * Compares two values based on their attribute type.
    * If the result is less than 0 then the first id is less than the second,
    * if it is equal to 0 they are equal and
    * if the result is greater than 0 then the first is greater than the second.
    */
   int compareValues(Attribute a, var v1, var v2) {
-    var compare = 0;
-      if (a.type.base == 'String') {
-        compare = v1.compareTo(v2);
-      } else if (a.type.base == 'num' ||
-        a.type.base == 'int' || a.type.base == 'double') {
-        compare = v1.compareTo(v2);
-      } else if (a.type.base == 'bool') {
-        compare = v1.toString().compareTo(v2.toString());
-      } else if (a.type.base == 'DateTime') {
-        compare = v1.compareTo(v2);
-      } else if (a.type.base == 'Duration') {
-        compare = v1.compareTo(v2);
-      } else if (a.type.base == 'Uri') {
-        compare = v1.toString().compareTo(v2.toString());
-      } else {
-        String msg = 'cannot compare then order on this type';
-        if (a.concept != null) {
-          msg = '${a.concept.code}.${a.code} is of ${a.type.code} type: cannot order.';
-        } else {
-          msg = '${a.code} is of ${a.type.code} type: cannot order.';
-        }
-        throw new OrderError(msg);
-      }
-    return compare;
+    return a.type.compare(v1, v2);
   }
   
   addDataRow(ConceptEntity entity) {
