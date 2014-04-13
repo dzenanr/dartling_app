@@ -83,7 +83,9 @@ class EntitiesTable {
         entities.sort((e1, e2) {
           var v1 = e1.getAttribute(attribute.code);
           var v2 = e2.getAttribute(attribute.code);
-          return v1.compareTo(v2);
+          if (v1 != null && v2 != null) {
+            return compareValues(attribute, v1, v2);
+          }
         });
         display(sort: false);
       });        
@@ -94,6 +96,39 @@ class EntitiesTable {
       hRow.nodes.add(thElement);
     }
     table.nodes.add(hRow);
+  }
+  
+  /**
+   * Compares two values based on their attribute.
+   * If the result is less than 0 then the first id is less than the second,
+   * if it is equal to 0 they are equal and
+   * if the result is greater than 0 then the first is greater than the second.
+   */
+  int compareValues(Attribute a, var v1, var v2) {
+    var compare = 0;
+      if (a.type.base == 'String') {
+        compare = v1.compareTo(v2);
+      } else if (a.type.base == 'num' ||
+        a.type.base == 'int' || a.type.base == 'double') {
+        compare = v1.compareTo(v2);
+      } else if (a.type.base == 'bool') {
+        compare = v1.toString().compareTo(v2.toString());
+      } else if (a.type.base == 'DateTime') {
+        compare = v1.compareTo(v2);
+      } else if (a.type.base == 'Duration') {
+        compare = v1.compareTo(v2);
+      } else if (a.type.base == 'Uri') {
+        compare = v1.toString().compareTo(v2.toString());
+      } else {
+        String msg = 'cannot compare then order on this type';
+        if (a.concept != null) {
+          msg = '${a.concept.code}.${a.code} is of ${a.type.code} type: cannot order.';
+        } else {
+          msg = '${a.code} is of ${a.type.code} type: cannot order.';
+        }
+        throw new OrderError(msg);
+      }
+    return compare;
   }
   
   addDataRow(ConceptEntity entity) {
