@@ -164,7 +164,7 @@ class EntityTable {
     var newEntity = entities.newEntity();
     for (Attribute attribute in nonIncrementAttributes) {
       var row = findRow(attribute);
-      if (attribute.type.code == 'bool') {
+      if (attribute.type.base == 'bool') {
         newEntity.setAttribute(attribute.code, rowField(row).checked);
       } else {
         var value = rowField(row).value;

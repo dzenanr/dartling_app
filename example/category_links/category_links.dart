@@ -29,8 +29,8 @@ Model createModel(Domain domain) {
   webLinkSubject.type = nameType;
     
   var webLinkUrl = new Attribute(webLinkConcept, 'url');
-  AttributeType urlType = domain.getType('Uri');
-  webLinkUrl.type = urlType;
+  AttributeType uriType = domain.getType('Uri');
+  webLinkUrl.type = uriType;
   
   var webLinkDescription = new Attribute(webLinkConcept, 'description');
   webLinkDescription.type = descriptionType;
