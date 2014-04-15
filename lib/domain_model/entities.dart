@@ -115,7 +115,19 @@ class EntitiesTable {
       TableCellElement tdElement = new Element.td();
       var value = entity.getAttribute(attribute.code);
       if (value != null) {
-        tdElement.text = entity.getAttribute(attribute.code).toString();
+        var string = value.toString();
+        if (attribute.type.base == 'Uri') {
+          var link = new AnchorElement(href: string);
+          link.appendText(string);
+          tdElement.nodes.add(link);
+        } else if (attribute.type.code == 'Email') {
+          var email = 'mailto:${string}';
+          var link = new AnchorElement(href: email);
+          link.appendText(string);
+          tdElement.nodes.add(link);
+        } else {
+          tdElement.text = string;
+        }
       }
       dRow.nodes.add(tdElement);
     }
@@ -142,10 +154,12 @@ class EntitiesTable {
   }
   
   selectEntity(Event e) {
-    var dRow = (e.target as TableCellElement).parent;
-    var idn = int.parse(dRow.id);
-    var entity = entities.singleWhereOid(new Oid.ts(idn));
-    entityTable.setEntity(entity);
+    if (e.target is TableCellElement) {
+      var dRow = (e.target as TableCellElement).parent;
+      var idn = int.parse(dRow.id);
+      var entity = entities.singleWhereOid(new Oid.ts(idn));
+      entityTable.setEntity(entity);
+    } 
   }
   
   save() {
